@@ -52,12 +52,13 @@ class NaiveBayesianStorage
     {
     	include_once dirname(__FILE__).'/class.mysql.php';
     	$this->con = new Connection($user, $pwd , $server, $dbname);
+    	$this->con->execute('set names utf8');
     	return true;
 
     }
 
     /** get the list of categories with basic data.
-    
+
         @return array key = category ids, values = array(keys = 'probability', 'word_count')
     */
     function getCategories()

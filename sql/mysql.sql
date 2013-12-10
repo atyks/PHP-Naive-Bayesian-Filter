@@ -1,47 +1,34 @@
-# phpMyAdmin MySQL-Dump
-# version 2.2.6
-# http://phpwizard.net/phpMyAdmin/
-# http://www.phpmyadmin.net/ (download page)
-#
-# Host: localhost
-# Generation Time: Nov 01, 2003 at 11:47 PM
-# Server version: 3.23.49
-# PHP Version: 4.2.0
-# Database : `nb`
-# --------------------------------------------------------
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
-#
-# Table structure for table `nb_categories`
-#
+-- --------------------------------------------------------
 
-CREATE TABLE nb_categories (
-  category_id varchar(250) NOT NULL default '',
-  probability double NOT NULL default '0',
-  word_count bigint(20) NOT NULL default '0',
-  PRIMARY KEY  (category_id)
-) TYPE=MyISAM;
-# --------------------------------------------------------
+DROP TABLE IF EXISTS `nb_categories`;
+CREATE TABLE IF NOT EXISTS `nb_categories` (
+  `category_id` varchar(100) NOT NULL DEFAULT '',
+  `probability` double NOT NULL DEFAULT '0',
+  `word_count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-#
-# Table structure for table `nb_references`
-#
+-- --------------------------------------------------------
 
-CREATE TABLE nb_references (
-  id varchar(250) NOT NULL default '',
-  category_id varchar(250) NOT NULL default '',
-  content text NOT NULL,
-  PRIMARY KEY  (id),
-  KEY category_id (category_id)
-) TYPE=MyISAM;
-# --------------------------------------------------------
 
-#
-# Table structure for table `nb_wordfreqs`
-#
+DROP TABLE IF EXISTS `nb_references`;
+CREATE TABLE IF NOT EXISTS `nb_references` (
+  `id` varchar(250) NOT NULL DEFAULT '',
+  `category_id` varchar(100) NOT NULL DEFAULT '',
+  `content` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE nb_wordfreqs (
-  word varchar(250) NOT NULL default '',
-  category_id varchar(250) NOT NULL default '',
-  count bigint(20) NOT NULL default '0',
-  PRIMARY KEY  (word,category_id)
-) TYPE=MyISAM;
+-- --------------------------------------------------------
+
+DROP TABLE IF EXISTS `nb_wordfreqs`;
+CREATE TABLE IF NOT EXISTS `nb_wordfreqs` (
+  `word` varchar(100) NOT NULL DEFAULT '',
+  `category_id` varchar(100) NOT NULL DEFAULT '',
+  `count` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`word`,`category_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
