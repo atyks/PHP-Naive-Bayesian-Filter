@@ -1,0 +1,17 @@
+##### Windows #####
+Thumbs.db
+
+##### MAC #####
+.DS_Store
+
+##### SVN #####
+.svn/*
+
+##### Eclipse #####
+/.cache
+.project
+/.settings
+.buildpath
+
+##### Netbeans #####
+nbproject/*
