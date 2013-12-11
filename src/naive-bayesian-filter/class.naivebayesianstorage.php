@@ -121,7 +121,7 @@
 				return $this->con->execute("INSERT INTO nb_wordfreqs (word, category_id, count) VALUES ('" . $this->con->escapeStr($word) . "', '" . $this->con->escapeStr($category_id) . "', '" . $this->con->escapeStr((int) $count) . "')");
 			}
 			else {
-				return $this->con->execute("UPDATE nb_wordfreqs SET count+=" . (int) $count . " WHERE category_id = '" . $this->con->escapeStr($category_id) . "' AND word = '" . $this->con->escapeStr($word) . "'");
+				return $this->con->execute("UPDATE nb_wordfreqs SET count = count + " . (int) $count . " WHERE category_id = '" . $this->con->escapeStr($category_id) . "' AND word = '" . $this->con->escapeStr($word) . "'");
 			}
 		}
 
@@ -139,7 +139,7 @@
 				return $this->con->execute("DELETE FROM nb_wordfreqs WHERE word='" . $this->con->escapeStr($word) . "' AND category_id='" . $this->con->escapeStr($category_id) . "'");
 			}
 			else {
-				return $this->con->execute("UPDATE nb_wordfreqs SET count-=" . (int) $count . " WHERE category_id = '" . $this->con->escapeStr($category_id) . "' AND word = '" . $this->con->escapeStr($word) . "'");
+				return $this->con->execute("UPDATE nb_wordfreqs SET count = count - " . (int) $count . " WHERE category_id = '" . $this->con->escapeStr($category_id) . "' AND word = '" . $this->con->escapeStr($word) . "'");
 			}
 		}
 
