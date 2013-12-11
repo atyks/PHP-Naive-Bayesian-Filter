@@ -108,12 +108,23 @@ class NaiveBayesian
     */
     function train($doc_id, $category_id, $content)
     {
-    	$tokens = $this->_getTokens($content);
-        while (list($token, $count) = each($tokens)) {
-            $this->nbs->updateWord($token, $count, $category_id);
-        }
-        $this->nbs->saveReference($doc_id, $category_id, $content);
-        return true;
+    	$ret = false;
+
+    	// if this doc_id already trained, no trained
+    	if(! $this->nbs->getReference($doc_id)) {
+    	    $tokens = $this->_getTokens($content);
+            while (list($token, $count) = each($tokens)) {
+                $this->nbs->updateWord($token, $count, $category_id);
+            }
+            $this->nbs->saveReference($doc_id, $category_id, $content);
+
+            $ret = true;
+    	}
+    	else {
+    		$ret = false;
+    	}
+
+        return $ret;
     }
 
     /** untraining of a document.
@@ -136,15 +147,15 @@ class NaiveBayesian
     }
 
     /** rescale the results between 0 and 1.
-    
-        @author Ken Williams, ken@mathforum.org 
+
+        @author Ken Williams, ken@mathforum.org
         @see categorize()
         @return array normalized scores (keys => category, values => scores)
         @param array scores (keys => category, values => scores)
     */
-    function _rescale($scores) 
+    function _rescale($scores)
     {
-        // Scale everything back to a reasonable area in 
+        // Scale everything back to a reasonable area in
         // logspace (near zero), un-loggify, and normalize
         $total = 0.0;
         $max   = 0.0;
@@ -164,8 +175,8 @@ class NaiveBayesian
         }
         reset($scores);
         return $scores;
-    }        
-    
+    }
+
 
     /** update the probabilities of the categories and word count.
     This function must be run after a set of training
